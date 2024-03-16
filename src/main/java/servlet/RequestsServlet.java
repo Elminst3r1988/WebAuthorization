@@ -8,7 +8,8 @@ import java.io.IOException;
 
 public class RequestsServlet extends HttpServlet {
 
-    private final String assASCII = "<pre>" + "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄\n" +
+    private final String assASCII =
+            "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄\n" +
             "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⣶⣶⣶⣶⣤⣀⠄⠄⠄⠄⠄⠄⠄\n" +
             "⠄⠄⠄⠄⠄⣠⣶⣿⣿⣶⣦⣄⠄⠄⠄⢠⣿⣿⣿⣿⣿⣿⣿⣆⠄⠄⠄⠄⠄⠄\n" +
             "⠄⠄⠄⠄⢰⣿⣿⣿⣿⣿⣿⣿⣧⠄⠄⣾⣿⣿⣏⠉⠉⣿⣿⣿⡆⠄⠄⠄⠄⠄\n" +
@@ -22,23 +23,19 @@ public class RequestsServlet extends HttpServlet {
             "⠄⠄⢸⣿⣿⣿⣿⣿⣷⣤⣤⣤⣤⣤⣤⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠄⠄\n" +
             "⠄⠄⠄⢿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⠿⠛⠛⣛⣛⣛⣛⣛⣛⣛⡛⠛⠃⠄⠄\n" +
             "⠄⠄⠄⠄⠛⢛⣋⣉⣁⣤⣤⣤⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠄⠄\n" +
-            "⠄⠄⠄⠄⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡷⠄" + "</pre>";
+            "⠄⠄⠄⠄⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡷⠄";
 
 
 
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
 
-        String govnoHeader = request.getHeader("Govno");
-        response.setContentType("text/html; charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpServletResponse.SC_OK);
 
-        if (govnoHeader != null && govnoHeader.equals("jopa")) {
+
+        if (request.getHeader("Govno") != null && request.getHeader("Govno").equals("jopa")) {
             response.getWriter().println(assASCII);
             response.setHeader("hui", "zalupa");
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }
