@@ -19,20 +19,20 @@ public class SignUpServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException {
 
-        response.setStatus(HttpServletResponse.SC_OK);
-
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
 
         UserProfile profile = accountService.getUserByLogin(login);
         response.setContentType("text/html;charset=utf-8");
 
-        if (profile != null && profile.getPass().equals(pass)) {
-            response.getWriter().println("Authorized " + login);
-            response.setStatus(HttpServletResponse.SC_OK);
+        if (login == null || pass == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+
         } else {
-            response.getWriter().println("Unauthorized");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            accountService.addNewUser(new UserProfile(login, pass));
+            response.getWriter().println("New user account created: " + login);
+            response.setStatus(HttpServletResponse.SC_OK);
         }
 
 

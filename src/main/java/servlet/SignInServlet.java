@@ -19,15 +19,13 @@ public class SignInServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException {
 
-        response.setStatus(HttpServletResponse.SC_OK);
-
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
 
         UserProfile profile = accountService.getUserByLogin(login);
         response.setContentType("text/html;charset=utf-8");
 
-        if (profile != null && profile.getPass().equals(pass)) {
+        if (profile != null && profile.getLogin().equals(login) && profile.getPass().equals(pass)) {
             response.getWriter().println("Authorized " + login);
             response.setStatus(HttpServletResponse.SC_OK);
         } else {

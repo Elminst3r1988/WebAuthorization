@@ -7,6 +7,7 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import servlet.SignInServlet;
 import servlet.SignUpServlet;
 
 public class Main {
@@ -15,6 +16,7 @@ public class Main {
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
+        context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setResourceBase("public_html");
 
